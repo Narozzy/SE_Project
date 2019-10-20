@@ -7,7 +7,7 @@ class Listing < ApplicationRecord
     validates :isbn, presence: true, if: -> :is_book?
     validates :offer_type, presence: { message: 'List what type of item you are looking to post' }, 
     
-
+    # Function to make validation logic clearer
     def is_book?
         offer_type == 'book'
     end
