@@ -11,6 +11,11 @@
     </div>
   <% end %>
 
+  <div class='field'>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  
   <div class="field">
     <%= form.label :isbn %>
     <%= form.text_field :isbn %>
@@ -18,7 +23,7 @@
 
   <div class="field">
     <%= form.label :product_type %>
-    <%= form.text_field :product_type %>
+    <%= form.select :product_type, ['book', 'required material', 'other'] %>
   </div>
 
   <div class="actions">

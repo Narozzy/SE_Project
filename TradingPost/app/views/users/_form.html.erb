@@ -1,3 +1,24 @@
+<style>
+  .email-invalid {
+    background-color: red;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const email_text = document.getElementById('user_email');
+    email_text.parentNode.classList.add('email-invalid');
+    email_text.addEventListener('input', function() {
+      console.log('in onchange email_text');
+      if (email_text.value.includes('.edu')) {
+        email_text.parentNode.classList.remove('email-invalid');
+      }
+    });
+
+    console.dir(email_text);
+  });
+</script>
+
 <%= form_with(model: user, local: true) do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
