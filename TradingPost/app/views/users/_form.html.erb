@@ -12,10 +12,15 @@
       console.log('in onchange email_text');
       if (email_text.value.includes('.edu')) {
         email_text.parentNode.classList.remove('email-invalid');
+      } else {
+        email_text.parentNode.classList.add('email-invalid');
       }
     });
 
     console.dir(email_text);
+
+    // May want to add methods that will automatically have the field which is causing some error to be in focus
+    // Can extend this to go in order if there are multiple
   });
 </script>
 
