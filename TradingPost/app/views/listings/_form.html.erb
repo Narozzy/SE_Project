@@ -1,3 +1,16 @@
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const listing_isbn = document.getElementById("listing_isbn");
+    const listing_product_type = document.getElementById('listing_product_type');
+    const submit_btn = document.getElementsByName('commit')[0];
+    submit_btn.style.cursor = 'pointer';
+
+    listing_product_type.addEventListener('change', (info) => {
+      listing_isbn.disabled = (info.target.value == 'book') ? false : true;
+    })
+  });
+</script>
+
 <%= form_with(model: listing, local: true) do |form| %>
   <% if listing.errors.any? %>
     <div id="error_explanation">
