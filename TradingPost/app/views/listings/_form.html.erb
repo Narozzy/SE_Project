@@ -2,6 +2,8 @@
   document.addEventListener('DOMContentLoaded', () => {
     const listing_isbn = document.getElementById("listing_isbn");
     const listing_product_type = document.getElementById('listing_product_type');
+    listing_isbn.disabled = (listing_product_type.value == 'book') ? false : true;
+
     const submit_btn = document.getElementsByName('commit')[0];
     submit_btn.style.cursor = 'pointer';
 

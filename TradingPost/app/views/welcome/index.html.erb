@@ -1,3 +1,10 @@
 <h1>Welcome#index</h1>
 
-
+<h2>Recent Listings</h2>
+<% result = Listing.last(5) # this is for our most recent listings %>
+<% result.each do |item| %>
+    <% puts item.title # Logging to console %>
+    <div id='recent_listing_<%= item.title.tr(' ','_') %>' class='recent_listing'>
+        <p><%= item.title %></p>
+    </div>
+<% end %>
