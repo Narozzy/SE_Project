@@ -1,6 +1,6 @@
 /*Basic Formatting*/
 body{
-    background-color: grey;
+    background-color: gray;
 }
 
 /*Grid*/
@@ -23,6 +23,8 @@ body{
 .web-title{
     text-align: center;
 }
+
+
 
 .nav{
     width: auto;
