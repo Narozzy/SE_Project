@@ -1,6 +1,9 @@
 class User < ApplicationRecord
+    has_many :listing
+
     validates :first_name, presence: true
     validates :last_name, presence: true
     validates :email, presence: true,
                format: { with: /\A([a-zA-Z]|\d)+@([a-zA-Z]|\d)+(.edu)\z/i, message: "Your email must contain \".edu\""}
+    validates :password, presence: true, length: { minimum: 5 }
 end

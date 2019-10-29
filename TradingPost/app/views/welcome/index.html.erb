@@ -1,22 +1,24 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const recent_listings = document.getElementsByClassName('recent_listing');
-        console.dir(recent_listings)
+        console.dir(recent_listings);
         for (let listing of recent_listings) {
             listing.addEventListener('mouseenter', (e_info) => {
-                let description = document.createElement('p');
-                description.innerHTML = '<strong>Info</strong>';
-                description.classList.add('dynamic_elements');
-                e_info.target.appendChild(description);
+                // let description = document.createElement('p');
+                // description.innerHTML = '<strong>Quick Info:</strong>';
+                // description.classList.add('dynamic_elements');
+                // e_info.target.appendChild(description);
+                e_info.target.children[0].style.float = 'right';
+                e_info.target.children[0].style.display = 'inline-block';
             });
 
             listing.addEventListener('mouseleave', (e_info) => {
-                let dynamics = document.getElementsByClassName('dynamic_elements');
-                for (let d of dynamics) {
-                    d.remove();
-                }
+                // let dynamics = document.getElementsByClassName('dynamic_elements');
+                // for (let d of dynamics) {
+                //     d.remove();
+                // }
+                e_info.target.children[0].style.display = 'none';
             });
-            console.log(listing);
         }
     });
 </script>
@@ -28,6 +30,11 @@
 <% result.each do |item| %>
     <% puts item.title # Logging to console %>
     <div id='recent_listing_<%= item.title.tr(' ','_') %>' class='recent_listing'>
+        <p id='<%= item.title %>' style='display:none;'>
+            <strong>About Listing:</strong>
+            isbn=<%= item.isbn %>,
+            title=<%= item.title %>
+        </p>
         <%= link_to item.title, listing_path(item) %>
     </div>
 <% end %>
