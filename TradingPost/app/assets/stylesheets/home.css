@@ -13,22 +13,28 @@ body{
 
 /*header*/
 .head{
-    width: auto;
+    width: 100%;
     height: auto;
     display: grid;
-    background-color: white;
+    background-color: rgb(247, 197, 73);
     grid-template-columns: 80% auto;
+    border: 1px solid black;
 }
 
 .web-title{
     text-align: center;
+    align-content: center;
+}
+
+.web-title h1 {
+    padding-top: 0.75em;
 }
 
 .nav{
     width: auto;
     height: auto;
     display: grid;
-    background-color: orange;
+    background-color: rgb(247, 197, 73);
     grid-template-columns: auto auto;
     grid-template-rows: auto auto;
 }
@@ -36,21 +42,22 @@ body{
 .acct{
     grid-column: 1/3;
     text-align: center;
+    border: 1px solid black;
 }
 
 .login, .profile{
     width: auto;
     height: auto;
-    border: 2px black;
+    border: 1px solid black;
     text-align: center; /*Going to be images later*/
-
+    background-color: #ccc;
 }
 
 /*footer*/
 footer{
     clear:both;
-    background: black; 
-    color: whitesmoke; 
+    background: rgb(247, 197, 73); 
+    color: black; 
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; 
     text-align: center; 
     margin: 0;
@@ -70,17 +77,29 @@ footer{
 .info{
     width: auto; 
     height: auto;
-    background-color: pink;
+    background-color: #ccc;
     display: grid;
     grid-gap: 10px 10px;
+    border: 1px solid black;
+}
+
+
+.info h1, p {
+    align-self: center;
+    text-align: center;
 }
 
 .gallery{
     width: auto; 
     height: auto;
-    background-color: green;
+    background-color: rgb(116, 175, 27);
     display: grid;
     grid-gap: 10px 10px;
+}
+
+.gallery h1 {
+    align-self: center;
+    text-align: center;
 }
 
 /*Right Block Information*/
@@ -90,27 +109,49 @@ footer{
     display: grid;
     grid-template-rows: auto auto;
     grid-gap: 10px 5px;
-    padding: 5px 5px 5px;
+    padding: 10px 10px 10px;
 }
 
 .recent{
     width: auto; 
     height: auto;
-    background-color: red;
+    background-color: rgb(116, 175, 27);
+    border: 1px solid black;
     display: grid;
     grid-gap: 10px 10px;
 }
 
+.recent h1, p {
+    align-self: center;
+    text-align: center;
+}
+
+
 .panels{
     width: auto; 
     height: auto;
-    background-color: yellow;
     display: grid;
     grid-template-rows: auto auto auto;
+    border: 1px solid black;
 }
 
 .panel1, .panel2, .panel3{
     width: auto; 
     height: auto;
-    background-color: lightblue;
+    background-color: #ccc;
+}
+
+.panel1 h2,p {
+    align-self: center;
+    text-align: center;
+}
+
+.panel2 h2,p {
+    align-self: center;
+    text-align: center;
+}
+
+.panel3 h2,p {
+    align-self: center;
+    text-align: center;
 }
