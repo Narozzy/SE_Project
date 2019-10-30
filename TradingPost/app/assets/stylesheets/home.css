@@ -1,6 +1,6 @@
 /*Basic Formatting*/
 body{
-    background-color: grey;
+    background-color: gray;
 }
 
 /*Grid*/
@@ -29,6 +29,8 @@ body{
 .web-title h1 {
     padding-top: 0.75em;
 }
+
+
 
 .nav{
     width: auto;
