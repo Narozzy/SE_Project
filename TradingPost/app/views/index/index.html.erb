@@ -11,10 +11,9 @@
   <title>Home | Student Trading Post</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="../../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="../../assets/stylesheets/business-frontpage.css" rel="stylesheet">
+  <%# Replaced! The stylesheet_link_tag works by checking assets/stylesheets for a relative path %>
+  <%# <link href="../../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> %>
+  <%= stylesheet_link_tag 'bootstrap.min.css' %>
 
 </head>
 
@@ -34,7 +33,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"></a>>Profile</a>
+            <a class="nav-link" href="#">Profile</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Listings</a>
@@ -69,7 +68,6 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis optio neque consectetur consequatur magni in nisi, natus beatae quidem quam odit commodi ducimus totam eum, alias, adipisci nesciunt voluptate. Voluptatum.</p>
 
         <!--Call official text with render below-->
-        <!--<%= render 'index-text' %>-->
     </div>
       <div class="col-md-4 mb-5">
         <!-- <h2>User Profile</h2> -->
@@ -78,7 +76,6 @@
         <a class="btn background text-white-50 btn-lg" href="#">Sign-Up &raquo;</a>
 
         <!--Update User Profile with actual user profile-->
-        <!--<%= render 'user' %>-->
       </div>
     </div>
     <!-- /.row -->
@@ -90,7 +87,7 @@
 
     <div class="row">
       <!--Update Listing 1-->
-      <!--<%= render 'listing1' %>-->
+    
       <div class="col-md-4 mb-5">
         <div class="card h-100">
           <img class="card-img-top" src="http://placehold.it/300x200" alt="">
@@ -105,7 +102,6 @@
       </div>
 
       <!--Update Listing 2-->
-      <!--<%= render 'listing2' %>-->
       <div class="col-md-4 mb-5">
         <div class="card h-100">
           <img class="card-img-top" src="http://placehold.it/300x200" alt="">
@@ -120,7 +116,6 @@
       </div>
       
       <!--Update Listing 3-->
-      <!--<%= render 'listing3' %>-->
       <div class="col-md-4 mb-5">
         <div class="card h-100">
           <img class="card-img-top" src="http://placehold.it/300x200" alt="">
@@ -150,8 +145,10 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="../../../vendor/jquery/jquery.min.js"></script>
-  <script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <%# <script src="../../../vendor/jquery/jquery.min.js"></script>
+  <script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script> %>
+  <%# <%= javascript_pack_tag '../../../vendor/jquery/jquery.min.js'%>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 </body>
 
