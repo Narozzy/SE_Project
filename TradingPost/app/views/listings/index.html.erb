@@ -1,29 +1,111 @@
-<p id="notice"><%= notice %></p>
+<!DOCTYPE html>
+<html lang="en">
 
-<h1>Listings</h1>
+<head>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Product type</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-  <tbody>
-    <% @listings.each do |listing| %>
-      <tr>
-        <td><%= listing.title %></td>
-        <td><%= listing.product_type %></td>
-        <td><%= link_to 'Show', listing %></td>
-        <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
-        <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+  <title>Home | Student Trading Post</title>
+
+  <!-- Bootstrap core CSS -->
+  <%# Replaced! The stylesheet_link_tag works by checking assets/stylesheets for a relative path %>
+  <%# <link href="../../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> %>
+  <%= stylesheet_link_tag 'bootstrap.min.css' %>
+
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Student Trading Post</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="../index/index.html">Home <!--Change to "../index.html.erb when updated-->
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Listings</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="background  py-5 mb-5">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <h1 class="display-4 text-white mt-5 mb-2">Student Trading Post</h1>
+          <div class="input-group input-group-lg">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-lg">Search</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!--Recent Listings-->
+    <div class="col-md-4 mb-5">
+      <h2>Recent Listings</h2>
+    </div>
+
+    <%# <% recent_listings =  %>
+    <div class="row">
+    <% Listing.last(6).reverse.each do |listing| %>
+      <div class='col-md-4 mb-5'>
+        <div class='card h-100'>
+          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+          <div class='card-body'>
+            <h4 class="card-title"><%= listing.title %></h4>
+            <p class="card-text"><%= listing.product_type %></p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btnbackground text-white-50">Find Out More!</a>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
 
-<br>
+    </div>
+    <!-- /.row -->
 
-<%= link_to 'New Listing', new_listing_path %>
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Student Trading Post 2019</p><br>
+      <p class="m-0 text-center text-white">Group 13: Noah Rozelle | Nicolas Davila | Riley Hood | Andreas Kamppouris | Chouathong Lo</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <%# <script src="../../../vendor/jquery/jquery.min.js"></script>
+  <script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script> %>
+  <%# <%= javascript_pack_tag '../../../vendor/jquery/jquery.min.js'%>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+</body>
+
+</html>
