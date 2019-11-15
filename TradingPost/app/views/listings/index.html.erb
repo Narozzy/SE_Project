@@ -21,14 +21,14 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Student Trading Post</a>
+      <a class="navbar-brand" href="<%= root_path %>">Student Trading Post</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="../index/index.html">Home <!--Change to "../index.html.erb when updated-->
+            <a class="nav-link" href="<%= root_path %>">Home <!--Change to "../index.html.erb when updated-->
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -36,7 +36,7 @@
             <a class="nav-link" href="#">Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Listings</a>
+            <a class="nav-link" href="<%= listings_path %>">Listings</a>
           </li>
         </ul>
       </div>
@@ -53,7 +53,11 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-lg">Search</span>
             </div>
-            <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+            <%= form_tag(listings_path, :method => "get", id: "search-form", class:'input-group input-group-lg') do %>
+              <%= text_field_tag :listing, params[:listing], placeholder: "Search Listings", class: 'form-control' %>
+            <% end %>
+            <%# <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"> %>
+            <%# <%= text_field_tag :query, params[:query], class: 'navbar-form' role: 'search' %>
           </div>
         </div>
       </div>
@@ -62,32 +66,56 @@
 
   <!-- Page Content -->
   <div class="container">
-
+    <%= button_to 'Create Listing', { :action => 'new' }, :method => :get, class: 'btn btn-dark create-listing-btn' %>
     <!--Recent Listings-->
     <div class="col-md-4 mb-5">
-      <h2>Recent Listings</h2>
+      <h2>Listings</h2>
     </div>
 
     <%# <% recent_listings =  %>
     <div class="row">
-    <% Listing.last(6).reverse.each do |listing| %>
-      <div class='col-md-4 mb-5'>
-        <div class='card h-100'>
-          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
-          <div class='card-body'>
-            <h4 class="card-title"><%= listing.title %></h4>
-            <p class="card-text"><%= listing.product_type %></p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btnbackground text-white-50">Find Out More!</a>
+    <% if @listings %>
+    <%# This is a normal page loading, we will show the last 6 listings %>
+      <% Listing.last(6).reverse.each do |listing| %>
+        <div class='col-md-4 mb-5'>
+          <div class='card h-100'>
+            <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+            <div class='card-body'>
+              <h4 class="card-title"><%= listing.title %></h4>
+              <p class="card-text"><%= listing.product_type %></p>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btnbackground text-white-50">Find Out More!</a>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
+    <% else %>
+    <%# This is a searched page render, we will have the results of the query %>
+      <% @results.each do |listing| %>
+        <div class='col-md-4 mb-5'>
+          <div class='card h-100'>
+            <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+            <div class='card-body'>
+              <h4 class="card-title"><%= listing.title %></h4>
+              <p class="card-text"><strong>Product Type:</strong><%= listing.product_type %></p>
+              <% if listing.isbn.presence %>
+                <p class='card-text'><strong>ISBN:</strong><%= listing.isbn %></p>
+              <% end %>
+            </div>
+            <div class="card-footer">
+              <% if listing.user_id.presence %>
+                <% puts listing %>
+                <a href="#" class='btn btnbackground text-white-50'><% listing.user_id %></a>
+              <% end %>
+              <a href="#" class="btn btnbackground text-white-50">Find Out More!</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-
     </div>
     <!-- /.row -->
-
   </div>
   <!-- /.container -->
 

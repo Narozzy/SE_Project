@@ -7,9 +7,14 @@ Rails.application.routes.draw do
   get 'listings/index'
   resources :home
   resources :users
-  root 'home#index'
+  root 'index#index'
+
+  resources :index do
+    resources :listings
+  end
 
   resources :listings do
+    resources :home
     resources :users
   end
 end

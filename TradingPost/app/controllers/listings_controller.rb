@@ -4,7 +4,15 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    @listings = Listing.all
+    if params[:listing].blank?
+      @listings = Listing.all
+    else
+      @parameter = params[:listing].downcase
+      @results = Listing.limit(9).all.where("lower(title) LIKE :query OR isbn LIKE :query", query: "%" + @parameter + "%")
+      @results.each do |result|
+        puts result.title
+      end
+    end
   end
 
   # GET /listings/1
@@ -69,6 +77,6 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.require(:listing).permit(:title, :product_type)
+      params.require(:listing).permit(:title, :product_type, :user_id)
     end
 end
