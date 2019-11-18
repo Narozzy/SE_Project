@@ -1,9 +1,12 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
 
   # GET /listings
   # GET /listings.json
   def index
+    current_user.listings
+    
     if params[:listing].blank?
       @listings = Listing.all
     else
