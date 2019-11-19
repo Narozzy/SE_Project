@@ -1,10 +1,5 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
+<% @user = User.find(params[:id]) %>
 <p>
   <strong>Email:</strong>
   <%= @user.email %>
@@ -15,5 +10,5 @@
   <%= @user.major %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Edit', edit_user_path(@user) %>
 <%= link_to 'Back', users_path %>

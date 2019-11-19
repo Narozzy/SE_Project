@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -11,14 +10,11 @@
   <title>Home | Student Trading Post</title>
 
   <!-- Bootstrap core CSS -->
-  <%# Replaced! The stylesheet_link_tag works by checking assets/stylesheets for a relative path %>
-  <%# <link href="../../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> %>
   <%= stylesheet_link_tag 'bootstrap.min.css' %>
-
 </head>
 
 <body>
-  <!-- Navigation -->
+  <%# Navigation %>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="<%= root_path %>">Student Trading Post</a>
@@ -27,24 +23,28 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="<%= root_path %>">Home <!--Change to "../index.html.erb when updated-->
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
+          <li class="nav-item active">
+            <a class="nav-link" href="<%= listings_path %>">Listings</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<%= listings_path %>">Listings</a>
+            <% if signed_in? %>
+              <%= link_to "Sign out", sign_out_path, method: :delete, class: 'nav-link' %>
+            <% else %>
+              <%= link_to "Sign in", sign_in_path, class: 'nav-link' %>
+            <% end %>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-
+  -->
   <!-- Header -->
-  <header class="background  py-5 mb-5">
+  <header class="p-3 mb-2 bg-success text-white">
     <div class="container h-100">
       <div class="row h-100 align-items-center">
         <div class="col-lg-12">
@@ -85,12 +85,13 @@
               <p class="card-text"><%= listing.product_type %></p>
             </div>
             <div class="card-footer">
-              <a href="#" class="btn btnbackground text-white-50">Find Out More!</a>
+              <a href="#" class="btn btnbackground text-50">Contact Seller</a>
             </div>
           </div>
         </div>
       <% end %>
     <% else %>
+    <%# There has to be a better way of rendering all this, but its fine %>
     <%# This is a searched page render, we will have the results of the query %>
       <% @results.each do |listing| %>
         <div class='col-md-4 mb-5'>
@@ -103,13 +104,11 @@
                 <p class='card-text'><strong>ISBN:</strong><%= listing.isbn %></p>
               <% end %>
             </div>
-            <div class="card-footer">
-              <% if listing.user_id.presence %>
-                <% puts listing %>
-                <a href="#" class='btn btnbackground text-white-50'><% listing.user_id %></a>
-              <% end %>
-              <a href="#" class="btn btnbackground text-white-50">Find Out More!</a>
-            </div>
+            <% if listing.user_id.presence %>
+              <div class="card-footer">
+                <a href="#" class='btn btnbackground text-50'>Contact Seller</a>
+              </div>
+            <% end %>
           </div>
         </div>
       <% end %>

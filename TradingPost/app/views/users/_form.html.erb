@@ -1,22 +1,15 @@
-<div class="text-field">
-  <%= form.label :email %>
-  <%= form.text_field :email, type: 'email', :class => 'form-control form-control-lg' %>
-</div>
 
-<div class="password-field">
-  <%= form.label :password %>
-  <%= form.password_field :password, class: 'form-control form-control-lg' %>
-</div>
-
-<form>
-  <div class="form-group">
-    <label for="major-form-select">Major</label>
-    <select class="form-control" id="major-form-select">
-      <option>Computer Science</option>
-      <option>Business</option>
-      <option>Finance</option>
-      <option>Electrical Engineering</option>
-      <option>Mathematics</option>
-    </select>
+  <div class="text-field">
+    <%= form.label :email %>
+    <%= form.text_field :email, type: 'email', :class => 'form-control form-control-lg' %>
   </div>
-</form>
+
+  <div class="password-field">
+    <%= form.label :password %>
+    <%= form.password_field :password, class: 'form-control form-control-lg' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :major %>
+    <%= form.select :major, ["Computer Science", 'Business', 'Finance', 'Electrical Engineering', 'Mathematics', 'Other'], { class: 'form-control' }, :prompt => 'Select a major' %>
+  </div>

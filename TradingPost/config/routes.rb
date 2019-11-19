@@ -5,12 +5,15 @@ Rails.application.routes.draw do
   get 'index/index'
   get 'users/index'
   get 'listings/index'
+  get 'users/show'
+  get 'users/edit'
   resources :home
   resources :users
   root 'index#index'
 
   resources :index do
     resources :listings
+    resources :users
   end
 
   resources :listings do
