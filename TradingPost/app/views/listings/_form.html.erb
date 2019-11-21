@@ -11,6 +11,9 @@
     </div>
   <% end %>
 
+  <% @listing.user_id = current_user.id %>
+  <% puts @listing %>
+
   <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
@@ -21,9 +24,14 @@
     <%= form.text_field :product_type %>
   </div>
 
+  <div class="field">
+    <%= form.label "Attach Photo" %>
+    <%= form.file_field :img %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
 
-<%# TODO: Need to make this look presentable and dynamic %>
+<%# TODO: Need to make this look presentable and dynamic, also user must be attached %>

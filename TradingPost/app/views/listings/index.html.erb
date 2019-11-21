@@ -42,7 +42,7 @@
       </div>
     </div>
   </nav>
-  -->
+
   <!-- Header -->
   <header class="p-3 mb-2 bg-success text-white">
     <div class="container h-100">
@@ -79,13 +79,18 @@
       <% Listing.last(6).reverse.each do |listing| %>
         <div class='col-md-4 mb-5'>
           <div class='card h-100'>
+          <%# TODO: make it so listings have images, if there is an image, change that to be the attached image %>
             <img class="card-img-top" src="http://placehold.it/300x200" alt="">
             <div class='card-body'>
               <h4 class="card-title"><%= listing.title %></h4>
               <p class="card-text"><%= listing.product_type %></p>
             </div>
             <div class="card-footer">
-              <a href="#" class="btn btnbackground text-50">Contact Seller</a>
+              <% if defined?(listing.user_id) %>
+                <a href="/users/<%= listing.user_id %>" class='btn btnbackground text-50'>Contact Seller</a>
+              <% else %>
+                <a href="#" class='btn btnbackground text-50'>Cannot Find User</a>
+              <% end %>
             </div>
           </div>
         </div>
@@ -106,7 +111,11 @@
             </div>
             <% if listing.user_id.presence %>
               <div class="card-footer">
-                <a href="#" class='btn btnbackground text-50'>Contact Seller</a>
+                <% if defined?(listing.user_id) %>
+                  <a href="/users/<%= listing.user_id %>" class='btn btnbackground text-50'>Contact Seller</a>
+                <% else %>
+                  <a href="#" class='btn btnbackground text-50'>Cannot Find User</a>
+                <% end %>
               </div>
             <% end %>
           </div>
