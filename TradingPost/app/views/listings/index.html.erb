@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="Search for school supplies from within your own student community!">
+  <meta name="author" content="Group 13">
 
   <title>Home | Student Trading Post</title>
 
@@ -14,6 +14,19 @@
 </head>
 
 <body>
+  <style>
+    .listing-foot-right {
+      float: right;
+    }
+
+    .card-img-top:hover {
+      cursor: pointer;
+    }
+
+    .create-listing-btn {
+      float: right;
+    }
+  </style>
   <%# Navigation %>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -24,7 +37,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="<%= root_path %>">Home <!--Change to "../index.html.erb when updated-->
+            <a class="nav-link" href="<%= root_path %>">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -33,9 +46,9 @@
           </li>
           <li class="nav-item">
             <% if signed_in? %>
-              <%= link_to "Sign out", sign_out_path, method: :delete, class: 'nav-link' %>
+              <%= link_to "Sign out", sign_out_path, method: :delete, class: 'nav-link', id: 'sign-in-out' %>
             <% else %>
-              <%= link_to "Sign in", sign_in_path, class: 'nav-link' %>
+              <%= link_to "Sign in", sign_in_path, class: 'nav-link', id: 'sign-in-out' %>
             <% end %>
           </li>
         </ul>
@@ -50,14 +63,9 @@
         <div class="col-lg-12">
           <h1 class="display-4 text-white mt-5 mb-2">Student Trading Post</h1>
           <div class="input-group input-group-lg">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-lg">Search</span>
-            </div>
             <%= form_tag(listings_path, :method => "get", id: "search-form", class:'input-group input-group-lg') do %>
               <%= text_field_tag :listing, params[:listing], placeholder: "Search Listings", class: 'form-control' %>
             <% end %>
-            <%# <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"> %>
-            <%# <%= text_field_tag :query, params[:query], class: 'navbar-form' role: 'search' %>
           </div>
         </div>
       </div>
@@ -70,9 +78,12 @@
     <!--Recent Listings-->
     <div class="col-md-4 mb-5">
       <h2>Listings</h2>
+      <% if @parameter.presence %>
+        <h3> Results for: "<%= @parameter %>" </h3>
+      <% end %>
     </div>
 
-    <%# <% recent_listings =  %>
+    <%# Look into pagination possibly as a feature, this can be done through bootstrap easily %>
     <div class="row">
     <% if @listings %>
     <%# This is a normal page loading, we will show the last 6 listings %>
@@ -80,39 +91,56 @@
         <div class='col-md-4 mb-5'>
           <div class='card h-100'>
           <%# TODO: make it so listings have images, if there is an image, change that to be the attached image %>
-            <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+              <% if listing.img.presence %>
+                <% url_to_img = url_for(listing.img) %>
+                <img class="card-img-top" id="image_<%= listing.title %>" src="<%= url_to_img %>" alt="http://placehold.it/300x200">
+              <% else %>
+                <img class="card-img-top" id="image_<%= listing.title %>" src="http://placehold.it/300x200" alt="">
+              <% end %>
+            <script>
+              document.getElementById('image_<%= listing.title%>').onclick = () => {window.location = "/listings/<%= listing.id %>"};
+            </script>
             <div class='card-body'>
               <h4 class="card-title"><%= listing.title %></h4>
               <p class="card-text"><%= listing.product_type %></p>
             </div>
             <div class="card-footer">
               <% if defined?(listing.user_id) %>
-                <a href="/users/<%= listing.user_id %>" class='btn btnbackground text-50'>Contact Seller</a>
+                  <%= link_to 'Message', user_path(User.find(listing.user_id)) %>
+                  <% if listing.user_id == current_user.id %>
+                    <%= link_to 'Edit', edit_listing_path(listing.id), class: 'listing-foot-right' %>
+                  <% end %>
               <% else %>
-                <a href="#" class='btn btnbackground text-50'>Cannot Find User</a>
+                  <a href="#" class='btn btnbackground text-50'>Cannot Find User</a>
               <% end %>
             </div>
           </div>
         </div>
       <% end %>
     <% else %>
-    <%# There has to be a better way of rendering all this, but its fine %>
-    <%# This is a searched page render, we will have the results of the query %>
       <% @results.each do |listing| %>
         <div class='col-md-4 mb-5'>
           <div class='card h-100'>
-            <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+            <% if listing.img.presence %>
+              <% url_to_img = url_for(listing.img) %>
+              <img class="card-img-top" id="image_<%= listing.title %>" src="<%= url_to_img %>" alt="http://placehold.it/300x200">
+            <% else %>
+              <img class="card-img-top" id="image_<%= listing.title %>" src="http://placehold.it/300x200" alt="">
+            <% end %>
+            <script>
+              document.getElementById('image_<%= listing.title%>').onclick = () => { window.location = "/listings/<%= listing.id %>" };
+            </script>
             <div class='card-body'>
               <h4 class="card-title"><%= listing.title %></h4>
-              <p class="card-text"><strong>Product Type:</strong><%= listing.product_type %></p>
+              <p class="card-text"><strong>Product Type:</strong> <%= listing.product_type %></p>
               <% if listing.isbn.presence %>
-                <p class='card-text'><strong>ISBN:</strong><%= listing.isbn %></p>
+                <p class='card-text'><strong>ISBN:</strong> <%= listing.isbn %></p>
               <% end %>
             </div>
             <% if listing.user_id.presence %>
               <div class="card-footer">
                 <% if defined?(listing.user_id) %>
-                  <a href="/users/<%= listing.user_id %>" class='btn btnbackground text-50'>Contact Seller</a>
+                  <%= link_to 'Message', user_path(User.find(listing.user_id)) %>
                 <% else %>
                   <a href="#" class='btn btnbackground text-50'>Cannot Find User</a>
                 <% end %>
@@ -131,7 +159,7 @@
   <footer class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Student Trading Post 2019</p><br>
-      <p class="m-0 text-center text-white">Group 13: Noah Rozelle | Nicolas Davila | Riley Hood | Andreas Kamppouris | Chouathong Lo</p>
+      <p class="m-0 text-center text-white">Group 13: Noah Rozelle | Riley Hood | Andreas Kamppouris | Chouathong Lo</p>
     </div>
     <!-- /.container -->
   </footer>
@@ -142,6 +170,19 @@
   <%# <%= javascript_pack_tag '../../../vendor/jquery/jquery.min.js'%>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+  <%# <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cardImgTops = document.getElementsByClassName('card-img-top');
+      console.log(cardImgTops);
+      for (let card of cardImgTops) {
+        card.onclick = (e) => {
+          window.open('/listing/')
+        }
+      }
+    });
+    #TODO Need to embed the ID of the listing somewhere hidden so that I can make it so clicking the image
+    # does the same thing
+  </script> %>
 </body>
 
 </html>

@@ -5,8 +5,8 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="Trade within your own student community for school supplies and more!">
+  <meta name="author" content="Group 13">
 
   <title>Home | Student Trading Post</title>
 
@@ -14,7 +14,11 @@
   <%# Replaced! The stylesheet_link_tag works by checking assets/stylesheets for a relative path %>
   <%# <link href="../../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> %>
   <%= stylesheet_link_tag 'bootstrap.min.css' %>
-
+  <style>
+    .card-img-top {
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -28,16 +32,13 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="<%= root_path %>">Home 
+            <a class="nav-link" href="<%= root_path %>">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../listings/">Listings</a>
           </li>
-          <%# <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
-          </li> %>
           <li class="nav-item">
             <% if signed_in? %>
               <%= link_to "Sign out", sign_out_path, method: :delete, class: 'nav-link' %>
@@ -99,7 +100,15 @@
       <% listing_poster = User.find(listing.user_id) %>
       <div class='col-md-4 mb-5'>
         <div class='card h-100'>
-          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+          <% if listing.img.presence %>
+            <% url_to_img = url_for(listing.img) %>
+            <img class="card-img-top" id="image_<%= listing.title %>" src="<%= url_to_img %>" alt="http://placehold.it/300x200">
+          <% else %>
+            <img class="card-img-top" id="image_<%= listing.title %>" src="http://placehold.it/300x200" alt="">
+          <% end %>
+          <script>
+            document.getElementById('image_<%= listing.title%>').onclick = () => {window.location = "/listings/<%= listing.id %>"};
+          </script>
           <div class='card-body'>
             <h4 class="card-title"><%= listing.title %></h4>
             <p class="card-text"><%= listing.product_type %></p>
@@ -107,15 +116,16 @@
               <p class='card-text'>ISBN: <%= listing.isbn %></p>
             <% end %>
           </div>
-          <div class="card-footer">
-            <%= link_to "Message", user_path(listing_poster) %>
-          </div>
+          <% if defined?(listing.user_id) and signed_in? %>
+            <div class="card-footer">
+              <%= link_to "Message", user_path(listing_poster) %>
+            </div>
+          <% end %>
         </div>
       </div>
     <% end %>
     </div>
     <!-- /.row -->
-
   </div>
   <!-- /.container -->
 
@@ -123,7 +133,7 @@
   <footer class="py-5 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Student Trading Post 2019</p><br>
-      <p class="m-0 text-center text-white">Group 13: Noah Rozelle | Nicolas Davila | Riley Hood | Andreas Kamppouris | Chouathong Lo</p>
+      <p class="m-0 text-center text-white">Group 13: Noah Rozelle | Riley Hood | Andreas Kamppouris | Chouathong Lo</p>
     </div>
     <!-- /.container -->
   </footer>

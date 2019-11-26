@@ -5,7 +5,7 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    current_user.listings
+    puts current_user.listings
     
     if params[:listing].blank?
       @listings = Listing.all
@@ -21,6 +21,8 @@ class ListingsController < ApplicationController
   # GET /listings/1
   # GET /listings/1.json
   def show
+    @listing = Listing.find(params[:id])
+    @listing_owner = User.find(@listing.user_id)
   end
 
   # GET /listings/new

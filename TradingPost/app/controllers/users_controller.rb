@@ -12,7 +12,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    render :show, locals: { user: @user }
+    @users_listings = Listing.all.where('user_id=:id', :id => params[:id])
+    # render :show, locals: { user: @user, listings: @users_listings }
   end
 
   # GET /users/new
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    # Make this into a page where we can attach listing inqueries
   end
 
   # POST /users
