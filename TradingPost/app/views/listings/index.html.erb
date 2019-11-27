@@ -98,7 +98,7 @@
                 <img class="card-img-top" id="image_<%= listing.title %>" src="http://placehold.it/300x200" alt="">
               <% end %>
             <script>
-              document.getElementById('image_<%= listing.title%>').onclick = () => {window.location = "/listings/<%= listing.id %>"};
+              document.getElementById('image_<%= listing.title %>').onclick = () => {window.location = "/listings/<%= listing.id %>"};
             </script>
             <div class='card-body'>
               <h4 class="card-title"><%= listing.title %></h4>
@@ -169,20 +169,6 @@
   <script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script> %>
   <%# <%= javascript_pack_tag '../../../vendor/jquery/jquery.min.js'%>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-  <%# <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const cardImgTops = document.getElementsByClassName('card-img-top');
-      console.log(cardImgTops);
-      for (let card of cardImgTops) {
-        card.onclick = (e) => {
-          window.open('/listing/')
-        }
-      }
-    });
-    #TODO Need to embed the ID of the listing somewhere hidden so that I can make it so clicking the image
-    # does the same thing
-  </script> %>
 </body>
 
 </html>

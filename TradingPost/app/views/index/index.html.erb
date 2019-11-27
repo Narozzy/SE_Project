@@ -118,7 +118,7 @@
           </div>
           <% if defined?(listing.user_id) and signed_in? %>
             <div class="card-footer">
-              <%= link_to "Message", user_path(listing_poster) %>
+              <%= link_to "Message", new_message_path(:listing_id => listing.id, :from_id => current_user.id, :to_id => listing.user_id) %>
             </div>
           <% end %>
         </div>
