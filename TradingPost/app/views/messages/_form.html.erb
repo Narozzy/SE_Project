@@ -12,7 +12,14 @@
   <% end %>
   
   <%= hidden_field_tag 'message[to_id]', params[:to_id] %>
-  <%= hidden_field_tag 'message[listing_id]', params[:listing_id] %>
+  
+  <% if params[:listing_id] %>
+    <%= hidden_field_tag 'message[listing_id]', params[:listing_id] %>
+  <% end %>
+
+  <% if params[:prevmsg] %>
+    <%= hidden_field_tag 'message[prevmsg]', params[:prevmsg] %>
+  <% end %>
 
   <div class="field">
     <%= form.label :content %>

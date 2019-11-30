@@ -1,4 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_message_path(@message) %> |
+<% message_related = Message.all.where('prevmsg=:this_msg', :this_msg => @message.id) %>
+
+<p><%= @message.created_at.to_s.split(' ')[1] %> | <%= @message.content %></p>
+
+<% message_related.each do |message| %>
+  <p><%= message.created_at.to_s.split(' ')[1] %> | <%= message.content %></p>
+<% end %>
+
+<%= link_to 'Reply', new_message_path(:prevmsg => @message.id, :from_id => current_user.id, :to_id => @message[:to_id]) %> |
 <%= link_to 'Back', messages_path %>

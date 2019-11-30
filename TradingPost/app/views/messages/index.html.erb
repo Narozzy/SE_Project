@@ -11,13 +11,15 @@
 
   <tbody>
     <% @messages.each do |message| %>
-    <%# WE CNA MAKE THIS WORK, we just need to add another field to messages that make a linked list %>
-      <tr>
-        <td><%= message[:content][0..30] %>...</td>
-        <td><%= link_to 'Show', message %></td>
-        <td><%= link_to 'Edit', edit_message_path(message) %></td>
-        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% unless message.prevmsg %>
+        <tr>
+          <% message_user = User.find(message.from_id) %>
+          <td><strong><%= message_user.email %></strong> | </td>
+          <td><%= message[:content][0..30] %>...</td>
+          <td><%= link_to 'Show', message %></td>
+          <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

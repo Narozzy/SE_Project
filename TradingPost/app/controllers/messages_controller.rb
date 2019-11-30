@@ -11,6 +11,7 @@ class MessagesController < ApplicationController
   # GET /messages/1
   # GET /messages/1.json
   def show
+    # In show view, make it so we loop through this message for each one connected
   end
 
   # GET /messages/new
@@ -70,6 +71,6 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:to_id, :from_id, :listing_id, :content)
+      params.require(:message).permit(:to_id, :from_id, :listing_id, :content, :prevmsg)
     end
 end
