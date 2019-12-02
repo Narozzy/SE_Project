@@ -1,131 +1,162 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Home</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="../assets/stylesheets/home.css">
-    </head>
-</html>
+
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Home | Student Trading Post</title>
+
+  <%= stylesheet_link_tag 'bootstrap.min.css', media: 'all', 'data-turbolinks-track' => true %> 
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../../vendor/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet">
+  
+  <!-- Custom styles for this template -->
+  <link href="../../assets/stylesheets/business-frontpage.css" rel="stylesheet">
+
+</head>
 
 <body>
-    <header>
-        <div class="head">
-            <div class="web-title">
-                <h1>Student Trading Post</h1>
-                <div class="search">
-                    
-                </div>
-            </div>
-            <div class="nav">
-                <div class="acct"><h2>Account</h2></div>
-                <div class="login">
-                    <h3>login</h3>
-                </div>
-                <div class="profile">  
-                    <h3>profile</h3>
-                </div>
-            </div>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Student Trading Post</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="../index/index.html">Home <!--Change to "../index.html.erb when updated-->
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a> <!--Add link to Profile when page is completed-->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Listings</a> <!--Add link to Listings when page is completed-->
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="background  py-5 mb-5">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <h1 class="display-4 text-white mt-5 mb-2">Student Trading Post</h1>
+          <p class="lead mb-5 text-white-50">Need textbooks for your classes? Look through the listings to find the textbook that another student might have.</p>
         </div>
-    </header>
+      </div>
+    </div>
+  </header>
 
-    <main>
-        <div class="grid">
-            <div class="block1">
-                <div class="info">
-                    <h1>Information about Site</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna 
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit 
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-                    occaecat cupidatat non proident, sunt in culpa qui officia 
-                    deserunt mollit anim id est laborum.</p>
+  <!-- Page Content -->
+  <div class="container">
 
-                    <p>Eleifend quam adipiscing vitae proin. Nisl rhoncus mattis 
-                    rhoncus urna neque viverra justo nec. Bibendum est ultricies 
-                    integer quis. Aliquam eleifend mi in nulla posuere sollicitudin 
-                    aliquam ultrices sagittis. Molestie ac feugiat sed lectus 
-                    vestibulum. Morbi enim nunc faucibus a pellentesque sit amet. 
-                    Habitasse platea dictumst vestibulum rhoncus est pellentesque 
-                    elit ullamcorper. Dolor sit amet consectetur adipiscing elit 
-                    duis. Mus mauris vitae ultricies leo integer malesuada nunc. 
-                    Amet facilisis magna etiam tempor orci eu lobortis elementum. 
-                    Ut consequat semper viverra nam. Viverra vitae congue eu 
-                    consequat. Sed turpis tincidunt id aliquet risus feugiat in. 
-                    Egestas fringilla phasellus faucibus scelerisque eleifend 
-                    donec pretium vulputate. Semper eget duis at tellus at urna 
-                    condimentum. Dis parturient montes nascetur ridiculus mus 
-                    mauris vitae. Mattis nunc sed blandit libero volutpat sed. 
-                    Sit amet facilisis magna etiam tempor orci eu.</p>
-                </div>
+    <div class="row">
+      <div class="col-md-8 mb-5">
+        <h2>What is the Student Trading Post?</h2>
+        <hr>
 
-                <div class="gallery">
-                    <h1>Gallery</h1><br>
-                    <img src="../assets/images/book1.jpg" alt="book1example"><br>
-                    <img src="../assets/images/book2.jpg" alt="book2example"><br>
+        <!--Delete Lorem ipsum before adding official text-->
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi soluta quasi? Asperiores rem dolore eaque vel, porro, soluta unde debitis aliquam laboriosam. Repellat explicabo, maiores!</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis optio neque consectetur consequatur magni in nisi, natus beatae quidem quam odit commodi ducimus totam eum, alias, adipisci nesciunt voluptate. Voluptatum.</p>
 
-                </div>
-            </div>
+        <!--Call official text with render below-->
+        
+    </div>
+      <div class="col-md-4 mb-5">
+        <!-- <h2>User Profile</h2> -->
+        <h2>Sign-Up with your university email</h2><br>
+        <h2>Start finding your books today!</h2>
+        <a class="btn background text-white-50 btn-lg" href="#">Sign-Up &raquo;</a>
 
-            <div class="block2">
-                <div class="recent">
-                    <h1>Recent Listings</h1>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                    sed do eiusmod tempor incididunt ut labore et dolore magna 
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                    Duis aute irure dolor in reprehenderit in voluptate velit 
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-                    occaecat cupidatat non proident, sunt in culpa qui officia 
-                    deserunt mollit anim id est laborum.</p>
-                </div>
-               
-                <div class="panels">
-                    <div class="panel1">
-                        <h2>Listing 1</h2>
-                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna 
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                        Duis aute irure dolor in reprehenderit in voluptate velit 
-                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-                        occaecat cupidatat non proident, sunt in culpa qui officia 
-                        deserunt mollit anim id est laborum.</p>
-                    </div>
+        <!--Update User Profile with actual user profile-->
+       
+      </div>
+    </div>
+    <!-- /.row -->
 
-                    <div class="panel2">
-                        <h2>Listing 2</h2>
-                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna 
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                        Duis aute irure dolor in reprehenderit in voluptate velit 
-                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-                        occaecat cupidatat non proident, sunt in culpa qui officia 
-                        deserunt mollit anim id est laborum.</p>
-                    </div>
+    <!--Recent Listings-->
+    <div class="col-md-4 mb-5">
+      <h2>Recent Listings</h2>
+    </div>
 
-                    <div class="panel3">
-                        <h2>Listing 3</h2>
-                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna 
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                        Duis aute irure dolor in reprehenderit in voluptate velit 
-                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-                        occaecat cupidatat non proident, sunt in culpa qui officia 
-                        deserunt mollit anim id est laborum.</p>
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+      <!--Update Listing 1-->
+     
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Listing 1</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btnbackground text-white-50">Find Out More!</a>
+          </div>
         </div>
-    </main>
+      </div>
 
-    <footer>
-        2019 | ITSC3155-GROUP13<br>
-        Nicolas Davila | Riley Hood | Andreas Kamppouris | Chouathong Lo | Noah Rozelle<br>
-        The Student Trading Post
-    </footer>
+      <!--Update Listing 2-->
+      
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Listing 2</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque sequi doloribus totam ut praesentium aut.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btnbackground text-white-50">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+      
+      <!--Update Listing 3-->
+      
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <img class="card-img-top" src="http://placehold.it/300x200" alt="">
+          <div class="card-body">
+            <h4 class="card-title">Listing 3</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btnbackground text-white-50">Find Out More!</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Student Trading Post 2019</p><br>
+      <p class="m-0 text-center text-white">Group 13: Noah Rozelle | Nicolas Davila | Riley Hood | Andreas Kamppouris | Chouathong Lo</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../../vendor/jquery/jquery.min.js"></script>
+  <script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
+</html>
