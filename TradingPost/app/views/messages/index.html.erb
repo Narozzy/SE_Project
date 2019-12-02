@@ -1,29 +1,86 @@
-<p id="notice"><%= notice %></p>
+<html lang='en'>
+<head>
+  <%= stylesheet_link_tag 'bootstrap.min.css' %>
+  <style>
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head >
+<body>
+  <% total_msgs = Message.all.where('to_id=:user_id and prevmsg IS :nil', { :user_id => current_user.id, :nil => nil }) %>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="<%= root_path %>">Student Trading Post</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="<%= root_path %>">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../listings/">Listings</a>
+          </li>
+          <li class="nav-item active">
+            <a class='nav-link' href='../messages/'><%= total_msgs.size %> Messages</a>
+          </li>
+          <li class="nav-item">
+            <% if signed_in? %>
+              <%= link_to "Sign out", sign_out_path, method: :delete, class: 'nav-link' %>
+            <% else %>
+              <%= link_to "Sign in", sign_in_path, class: 'nav-link' %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<h1>Messages</h1>
+  <!-- Header -->
+  <header class="p-3 mb-2 bg-success text-white">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <h1 class="display-4 text mt-5 mb-2">All Messages</h1>
+          <p class="lead mb-5 text-50"><strong>For User:</strong> <%= User.find(current_user.id).email %></p>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="4"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+  <div>
+    <% class_name_addition = "list-group-item list-group-item-action list-group-item-success" %>
     <% @messages.each do |message| %>
       <% unless message.prevmsg %>
-        <tr>
-          <% message_user = User.find(message.from_id) %>
-          <td><strong><%= message_user.email %></strong> | </td>
-          <td><%= message[:content][0..30] %>...</td>
-          <td><%= link_to 'Show', message %></td>
-          <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+        <% about_listing = Listing.find(message[:listing_id]) %>
+        <% message_user = User.find(message.from_id) %>
+        <a href="<%= message_path(message.id) %>" class="<%= class_name_addition %>">
+          <strong>From:</strong> <%= message_user.email %> | <strong>Listing:</strong> <%= about_listing[:title] %> | <strong>Content:</strong> <%= message[:content][0..100] %>
+        </a>
+        <% if class_name_addition.include? 'list-group-item-success' %>
+          <% class_name_addition = 'list-group-item list-group-item-action list-group-item-primary' %>
+        <% else %>
+          <% class_name_addition = 'list-group-item list-group-item-action list-group-item-success' %>
+        <% end %>
       <% end %>
     <% end %>
-  </tbody>
-</table>
-
+  </div>
 <br>
 
-<%= link_to 'New Message', new_message_path %>
+<!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Student Trading Post 2019</p><br>
+      <p class="m-0 text-center text-white">Group 13: Noah Rozelle | Riley Hood | Andreas Kamppouris | Chouathong Lo</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+</body>
+</html>
