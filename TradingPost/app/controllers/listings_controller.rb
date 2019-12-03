@@ -5,8 +5,6 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    puts current_user.listings
-    
     if params[:listing].blank?
       @listings = Listing.all
     else

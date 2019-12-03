@@ -55,6 +55,7 @@
     </div>
   </header>
 
+  <h2>Received Messages:</h2>
   <div>
     <% class_name_addition = "list-group-item list-group-item-action list-group-item-success" %>
     <% @messages.each do |message| %>
@@ -65,7 +66,25 @@
           <strong>From:</strong> <%= message_user.email %> | <strong>Listing:</strong> <%= about_listing[:title] %> | <strong>Content:</strong> <%= message[:content][0..100] %>
         </a>
         <% if class_name_addition.include? 'list-group-item-success' %>
-          <% class_name_addition = 'list-group-item list-group-item-action list-group-item-primary' %>
+          <% class_name_addition = 'list-group-item list-group-item-action' %>
+        <% else %>
+          <% class_name_addition = 'list-group-item list-group-item-action list-group-item-success' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<br>
+<h2>Sent Messages:</h2>
+  <div>
+    <% @sent_messages.each do |sent_message| %>
+      <% unless sent_message.prevmsg %>
+        <% about_listing = Listing.find(sent_message[:listing_id]) %>
+        <% message_user = User.find(sent_message.from_id) %>
+        <a href="<%= message_path(sent_message.id) %>" class="<%= class_name_addition %>">
+          <strong>From:</strong> <%= message_user.email %> | <strong>Listing:</strong> <%= about_listing[:title] %> | <strong>Content:</strong> <%= sent_message[:content][0..100] %>
+        </a>
+        <% if class_name_addition.include? 'list-group-item-success' %>
+          <% class_name_addition = 'list-group-item list-group-item-action' %>
         <% else %>
           <% class_name_addition = 'list-group-item list-group-item-action list-group-item-success' %>
         <% end %>

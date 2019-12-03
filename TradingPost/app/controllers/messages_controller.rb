@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
+  before_action :require_login
 
   # GET /messages
   # GET /messages.json
@@ -30,7 +31,12 @@ class MessagesController < ApplicationController
     @message[:from_id] = current_user.id
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        if @message[:prevmsg]
+          redirect_path = '/messages/%d' % [@message[:prevmsg]]
+        else
+          redirect_path = '/messages/%d' % [@message[:id]]
+        end
+        format.html { redirect_to redirect_path, notice: 'Message was successfully created.' }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }

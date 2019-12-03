@@ -1,17 +1,3 @@
-<!--
-<p id="notice"><%= notice %></p>
-
-<% message_related = Message.all.where('prevmsg=:this_msg', :this_msg => @message.id) %>
-
-<p><%= @message.created_at.to_s.split(' ')[1] %> | <%= @message.content %></p>
-
-<% message_related.each do |message| %>
-  <p><%= message.created_at.to_s.split(' ')[1] %> | <%= message.content %></p>
-<% end %>
-
-<%= link_to 'Reply', new_message_path(:prevmsg => @message.id, :from_id => current_user.id, :to_id => @message[:to_id]) %> |
-<%= link_to 'Back', messages_path %>
--->
 <html lang='en'>
   <head>
     <%= stylesheet_link_tag 'bootstrap.min.css' %>
@@ -60,6 +46,7 @@
 
   <!-- Header -->
   <% this_message_user = User.find(@message[:from_id]) %>
+  <% this_listing = Listing.find(@message[:listing_id]) %>
   <header class="p-3 mb-2 bg-success text-white">
     <div class="container h-100">
       <div class="row h-100 align-items-center">
@@ -67,11 +54,13 @@
           <h1 class="display-5 text mt-5 mb-2">
             Between <strong><%= User.find(current_user.id).email %></strong> and <strong><%= this_message_user.email %></strong>
           </h1>
+          <p class='lead mb-5 text-50'><strong>For Listing:</strong> <%= this_listing.title %></p>
         </div>
       </div>
     </div>
   </header>
   
+  <%# Could probably move this to the controller %>
   <% message_related = Message.all.where('prevmsg=:this_msg', :this_msg => @message.id) %>
   <ul class="list-group">
     <li class="list-group-item d-flex justify-content-between align-items-center">

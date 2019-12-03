@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'users/show'
   get 'users/edit'
   resources :home
-  resources :users
+  resources :users, only: [:index, :show]
   root 'index#index'
 
   resources :index do
