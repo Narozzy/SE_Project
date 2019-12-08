@@ -9,7 +9,7 @@ class ListingsController < ApplicationController
       @listings = Listing.all
     else
       @parameter = params[:listing].downcase
-      @results = Listing.limit(9).all.where("lower(title) LIKE :query OR isbn LIKE :query", query: "%" + @parameter + "%")
+      @results = Listing.limit(9).all.where("lower(title) LIKE :query OR isbn LIKE :query OR product_type LIKE :query", query: "%" + @parameter + "%")
       @results.each do |result|
         puts result.title
       end

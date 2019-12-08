@@ -14,6 +14,7 @@
     <%= stylesheet_link_tag 'bootstrap.min.css' %>
   </head>
   <body><%# Navigation %>
+  <% total_msgs = Message.all.where('to_id=:user_id and prevmsg IS :nil', { :user_id => current_user.id, :nil => nil }) %>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="<%= root_path %>">Student Trading Post</a>
@@ -29,6 +30,9 @@
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="<%= listings_path %>">Listings</a>
+            </li>
+            <li class="nav-item">
+              <a class='nav-link' href='../messages/'><%= total_msgs.size %> Messages</a>
             </li>
             <li class="nav-item">
               <% if signed_in? %>
@@ -85,7 +89,7 @@
               <% end %>
               <%# TODO: Need to append messaging capability to this page %>
               <div class="card-footer">
-                <%= link_to "Message", new_message_path(:listing_id => @listing.id, :from_id => current_user.id, :to_id => @listing_owner.id) %>
+                <%= link_to "Message", new_message_path(:listing_id => @listing.id, :from_id => current_user.id, :to_id => @listing_owner.id), :id => 'message-user' %>
               </div>
             </div>
           </div>

@@ -3,11 +3,8 @@
   <h2><%= t(".title") %></h2>
 
   <% @user = User.new %>
+  
   <%= form_for @user do |form| %>
     <%= render partial: '/users/form', object: form %>
-
-    <div class="submit-field btn">
-      <%= form.submit 'Sign Up', :class => 'signupbtn btn btn-success btn-lg' %>
-    </div>
   <% end %>
 </div>

@@ -1,5 +1,56 @@
-<h1>New Message</h1>
+<% if signed_in? %>
+  <% total_msgs = Message.all.where('to_id=:user_id and prevmsg IS :nil', { :user_id => current_user.id, :nil => nil }) %>
+<% else %>
+  <% render html: sign_in_path %>
+<% end %>
 
-<%= render 'form', message: @message %>
+<!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="<%= root_path %>">Student Trading Post</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="<%= root_path %>">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../listings/">Listings</a>
+          </li>
+          <li class="nav-item active">
+            <% if signed_in? %>
+              <a class='nav-link' href='../messages/'><%= total_msgs.size %> Messages</a>
+            <% else %>
+              <a class='nav-link' href='../messages/'>No Messages</a>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <% if signed_in? %>
+              <%= link_to "Sign out", sign_out_path, method: :delete, class: 'nav-link' %>
+            <% else %>
+              <%= link_to "Sign in", sign_in_path, class: 'nav-link' %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<%= link_to 'Back', messages_path %>
+  <!-- Header -->
+  <header class="p-3 mb-2 bg-success text-white">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <h1 class="display-4 text mt-5 mb-2">New Message to <%= User.find(params[:to_id]).email %></h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<div class='container'>
+  <%= render 'form', message: @message %>
+</div>

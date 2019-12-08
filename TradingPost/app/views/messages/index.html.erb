@@ -8,7 +8,7 @@
       width: 100%;
     }
   </style>
-</head >
+</head>
 <body>
   <% total_msgs = Message.all.where('to_id=:user_id and prevmsg IS :nil', { :user_id => current_user.id, :nil => nil }) %>
   <!-- Navigation -->
@@ -33,9 +33,9 @@
           </li>
           <li class="nav-item">
             <% if signed_in? %>
-              <%= link_to "Sign out", sign_out_path, method: :delete, class: 'nav-link' %>
+              <%= button_to "Sign out", sign_out_path, method: :delete, class: 'btn btn-danger' %>
             <% else %>
-              <%= link_to "Sign in", sign_in_path, class: 'nav-link' %>
+              <%= button_to "Sign in", sign_in_path, method: :get,class: 'btn btn-success' %>
             <% end %>
           </li>
         </ul>
@@ -55,7 +55,7 @@
     </div>
   </header>
 
-  <h2>Received Messages:</h2>
+<h2>Received Messages:</h2>
   <div>
     <% class_name_addition = "list-group-item list-group-item-action list-group-item-success" %>
     <% @messages.each do |message| %>
@@ -81,7 +81,7 @@
         <% about_listing = Listing.find(sent_message[:listing_id]) %>
         <% message_user = User.find(sent_message.from_id) %>
         <a href="<%= message_path(sent_message.id) %>" class="<%= class_name_addition %>">
-          <strong>From:</strong> <%= message_user.email %> | <strong>Listing:</strong> <%= about_listing[:title] %> | <strong>Content:</strong> <%= sent_message[:content][0..100] %>
+          <strong>To:</strong> <%= message_user.email %> | <strong>Listing:</strong> <%= about_listing[:title] %> | <strong>Content:</strong> <%= sent_message[:content][0..100] %>
         </a>
         <% if class_name_addition.include? 'list-group-item-success' %>
           <% class_name_addition = 'list-group-item list-group-item-action' %>

@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save?
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to root_path, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -68,6 +68,18 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def user_from_params
+      email = user_params.delete(:email)
+      password = user_params.delete(:password)
+      major = user_params.delete(:major)
+  
+      Clearance.configuration.user_model.new(user_params).tap do |user|
+        user.email = email
+        user.password = password
+        user.major = major
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
