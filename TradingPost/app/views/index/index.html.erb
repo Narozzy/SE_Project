@@ -114,12 +114,12 @@
         <div class='card h-100'>
           <% if listing.img.presence %>
             <% url_to_img = url_for(listing.img) %>
-            <img class="card-img-top" id="image_<%= listing.title %>" src="<%= url_to_img %>" alt="http://placehold.it/300x200">
+            <img class="card-img-top" id="image_<%= listing.id %>" src="<%= url_to_img %>" alt="http://placehold.it/300x200">
           <% else %>
-            <img class="card-img-top" id="image_<%= listing.title %>" src="http://placehold.it/300x200" alt="">
+            <img class="card-img-top" id="image_<%= listing.id %>" src="http://placehold.it/300x200" alt="">
           <% end %>
           <script>
-            document.getElementById('image_<%= listing.title%>').onclick = () => {window.location = "/listings/<%= listing.id %>"};
+            document.getElementById('image_<%= listing.id %>').onclick = () => {window.location = "/listings/<%= listing.id %>"};
           </script>
           <div class='card-body'>
             <h4 class="card-title"><%= listing.title %></h4>
