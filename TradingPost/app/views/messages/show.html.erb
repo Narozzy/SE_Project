@@ -1,0 +1,92 @@
+<html lang='en'>
+  <head>
+    <%= stylesheet_link_tag 'bootstrap.min.css' %>
+    <style>
+      footer {
+        position:absolute;
+        bottom:0;
+        width:100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <% total_msgs = Message.all.where('to_id=:user_id and prevmsg IS :nil', { :user_id => current_user.id, :nil => nil }) %>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="<%= root_path %>">Student Trading Post</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="<%= root_path %>">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../listings/">Listings</a>
+          </li>
+          <li class="nav-item active">
+            <a class='nav-link' href='../messages/'><%= total_msgs.size %> Messages</a>
+          </li>
+          <li class="nav-item">
+            <% if signed_in? %>
+              <%= link_to "Sign out", sign_out_path, method: :delete, class: 'nav-link' %>
+            <% else %>
+              <%= link_to "Sign in", sign_in_path, class: 'nav-link' %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <% this_message_user = User.find(@message[:from_id]) %>
+  <% this_listing = Listing.find(@message[:listing_id]) %>
+  <header class="p-3 mb-2 bg-success text-white">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <h1 class="display-5 text mt-5 mb-2">
+            Between <strong><%= User.find(current_user.id).email %></strong> and <strong><%= this_message_user.email %></strong>
+          </h1>
+          <p class='lead mb-5 text-50'><strong>For Listing:</strong> <%= this_listing.title %></p>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <%# Could probably move this to the controller %>
+  <% message_related = Message.all.where('prevmsg=:this_msg', :this_msg => @message.id) %>
+  <ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <strong><%= User.find(@message[:from_id]).email %></strong><%= @message.content %>
+      <span class='badge badge-primary badge-pill'><%= @message[:created_at] %></span>
+    </li>
+    <% message_related.each do |msg| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <strong><%= User.find(msg[:from_id]).email %></strong><%= msg.content %>
+        <span class='badge badge-primary badge-pill'><%= msg[:created_at] %></span>
+      </li>
+    <% end %>
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <br>
+      <%= link_to 'Reply', new_message_path(:prevmsg => @message.id, :from_id => current_user.id, :to_id => @message[:to_id]) %>
+      <br>
+    </li>
+  </ul>
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Student Trading Post 2019</p><br>
+      <p class="m-0 text-center text-white">Group 13: Noah Rozelle | Riley Hood | Andreas Kamppouris | Chouathong Lo</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+  </body>
+</html>

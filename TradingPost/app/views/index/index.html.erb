@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Trade within your own student community for school supplies and more!">
+  <meta name="author" content="Group 13">
+
+  <title>Home | Student Trading Post</title>
+
+  <!-- Bootstrap core CSS -->
+  <%# Replaced! The stylesheet_link_tag works by checking assets/stylesheets for a relative path %>
+  <%# <link href="../../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> %>
+  <%= stylesheet_link_tag 'bootstrap.min.css' %>
+  <style>
+    .card-img-top {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <% if signed_in? %>
+    <% total_msgs = Message.all.where('to_id=:user_id and prevmsg IS :nil', { :user_id => current_user.id, :nil => nil }) %>
+  <% else %>
+    <% render html: sign_in_path %>
+  <% end %>
+  
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="<%= root_path %>">Student Trading Post</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="<%= root_path %>">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../listings/">Listings</a>
+          </li>
+          <li class="nav-item">
+          <% if signed_in? %>
+            <a class='nav-link' href='../messages/'><%= total_msgs.size %> Messages</a>
+          <% else %>
+            <a class='nav-link' href='../messages/'>No Messages</a>
+          <% end %>
+          </li>
+          <li class="nav-item">
+            <% if signed_in? %>
+              <%= button_to "Sign out", sign_out_path, method: :delete, class: 'btn btn-danger' %>
+            <% else %>
+              <%= button_to "Sign in", sign_in_path, method: :get,class: 'btn btn-success' %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="p-3 mb-2 bg-success text-white">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <h1 class="display-4 text mt-5 mb-2">Student Trading Post</h1>
+          <p class="lead mb-5 text-50">Need textbooks for your classes? Look through the listings to find the textbook that another student might have.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-8 mb-5">
+        <h2>What is the Student Trading Post?</h2>
+        <hr>
+
+        <!--Delete Lorem ipsum before adding official text-->
+        <p>School related expenses can often be the biggest stressor of college.<br><br>Introducing the Student Trading Post: a solution to the problem of expensive books that are often required by all undergraduate students for a desired curriculum.</p>
+        <!--Call official text with render below-->
+    </div>
+      <div class="col-md-4 mb-5">
+        <!-- <h2>User Profile</h2> -->
+        <h2>Sign-Up with your university email</h2><br>
+        <h2>Start finding your books today!</h2>
+        <a class="btn background text-white-50 btn-lg" href="#">Sign-Up &raquo;</a>
+        <!-- Fix above button -->
+
+        <!--Update User Profile with actual user profile-->
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <!--Recent Listings-->
+    <div class="col-md-4 mb-5">
+      <h2>Recent Listings</h2>
+    </div>
+
+    <div class="row">
+    <% recent_listings = Listing.last(3).reverse %>
+    <% recent_listings.each do |listing| %>
+      <% listing_poster = User.find(listing.user_id) %>
+      <div class='col-md-4 mb-5'>
+        <div class='card h-100'>
+          <% if listing.img.presence %>
+            <% url_to_img = url_for(listing.img) %>
+            <img class="card-img-top" id="image_<%= listing.id %>" src="<%= url_to_img %>" alt="http://placehold.it/300x200">
+          <% else %>
+            <img class="card-img-top" id="image_<%= listing.id %>" src="http://placehold.it/300x200" alt="">
+          <% end %>
+          <script>
+            document.getElementById('image_<%= listing.id %>').onclick = () => {window.location = "/listings/<%= listing.id %>"};
+          </script>
+          <div class='card-body'>
+            <h4 class="card-title"><%= listing.title %></h4>
+            <p class="card-text"><%= listing.product_type %></p>
+            <% if listing.isbn.presence %>
+              <p class='card-text'>ISBN: <%= listing.isbn %></p>
+            <% end %>
+          </div>
+          <% if defined?(listing.user_id) and signed_in? %>
+            <div class="card-footer">
+              <%= link_to "Message", new_message_path(:listing_id => listing.id, :from_id => current_user.id, :to_id => listing.user_id) %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Student Trading Post 2019</p><br>
+      <p class="m-0 text-center text-white">Group 13: Noah Rozelle | Riley Hood | Andreas Kamppouris | Chouathong Lo</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <%# <script src="../../../vendor/jquery/jquery.min.js"></script>
+  <script src="../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script> %>
+  <%# <%= javascript_pack_tag '../../../vendor/jquery/jquery.min.js'%>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+</body>
+
+</html>

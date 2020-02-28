@@ -1,0 +1,32 @@
+<%= bootstrap_form_with(model: listing, local: true) do |form| %>
+  <% if listing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(listing.errors.count, "error") %> prohibited this listing from being saved:</h2>
+
+      <ul>
+        <% listing.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% @listing[:user_id] = current_user.id %>
+
+  <div class="field">
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.select :product_type, ["Book", 'Materials', 'Hardware', 'Other'], { class: 'form-control' }, :prompt => 'Select a major' %>
+  </div>
+
+  <div class="field">
+    <%= form.file_field :img %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+    <%= link_to 'Back', listings_path, { :class => 'btn btn-secondary back-btn' } %>
+  </div>
+<% end %>

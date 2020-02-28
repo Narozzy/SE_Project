@@ -3,6 +3,8 @@ language:      node_js
 node_js:
   - "node"
 install:       npm install
+before_script:
+  - bundle exec rake db:migrate RAILS_ENV=test
 script:
   - npm test
   - gulp

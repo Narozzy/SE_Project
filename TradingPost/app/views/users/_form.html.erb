@@ -1,0 +1,30 @@
+<%= bootstrap_form_with(model: @user, local: true) do |form| %>
+  <% if @user.errors.any? %>
+    <div id='error_explanation'>
+      <h2> <%= pluralize(@user.errors.count, "error") %> prohibited this account creation:</h2>
+
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="text-field">
+    <%= form.text_field :email, type: 'email', :class => 'form-control form-control-lg' %>
+  </div>
+
+  <div class="password-field">
+    <%= form.password_field :password, class: 'form-control form-control-lg' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.select :major, ["Computer Science", 'Business', 'Finance', 'Electrical Engineering', 'Mathematics', 'Other'], { class: 'form-control' }, :prompt => 'Select a major' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+    <%= link_to 'Back', listings_path, { :class => 'btn btn-secondary back-btn' } %>
+  </div>
+<% end %>

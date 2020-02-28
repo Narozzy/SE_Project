@@ -59,4 +59,12 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Config the mailer, in production this should be your app's domain name
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.hosts << 'localhost:3000'
+
+  TradingPost::Application.configure do
+    config.middleware.use Clearance::BackDoor
+  end
 end
