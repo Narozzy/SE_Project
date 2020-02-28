@@ -1,10 +1,11 @@
 # SE_Project
 Project for Team 13 - Software Engineering (ITCS 3155)
 
+Developed by Noah Rozelle
+
 WireFrames
 ==================================================================
 - Noah Rozelle: https://gomockingbird.com/projects/di6ssxg/4gXVnC
-- Chouathong Lo: ChouathongLo_Framework.PNG
 
 
 Description
